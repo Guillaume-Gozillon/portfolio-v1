@@ -4,46 +4,68 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'LEMONMILK';
+  src: url('/fonts/LEMONMILK-Bold.otf');
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'LEMONMILK';
+  src: url('/fonts/LEMONMILK-Light.otf');
+  font-weight: 300;
+  font-style: normal;
+}
+
 body {
-  background-color: #e5e5f7;
-  opacity: 0.8;
+  background-color: #e9e9ff;
   background-image: radial-gradient(
-    #444cf7 0.9500000000000001px,
-    #e5e5f7 0.9500000000000001px
+    #7577a31a 0.9500000000000001px,
+    #ffffff 0.9500000000000001px
   );
   background-size: 19px 19px;
   height: 100vh;
-  color: #444cf7;
-  font-family: 'Josefin Sans', sans-serif;
+  color: white;
+  font-family: 'LEMONMILK', sans-serif;
 }
 
 .container {
   display: flex;
-  overflow: hidden;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 4rem;
+}
+
+.title {
   width: 100%;
-  position: absolute;
-  top: 45%;
-  transform: translateY(-50%);
+  height: 17rem;
+  background: #4e46df;
+  font-weight: 300;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.txt {
-  white-space: nowrap;
-  font-size: 4rem;
-  animation: scrollTxt 25s linear infinite;
-  font-weight: 500;
+h1 {
+  font-size: 1.5rem;
+  color: #4e46df;
+  margin: 3rem;
 }
 
-@keyframes scrollTxt {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-100%, 0);
-  }
+h1,
+h2 {
+  text-align: center;
 }
 
-@media screen and (max-width: 800px) {
-  .txt {
-    font-size: 1.2rem;
-  }
+.text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+nav {
+  backdrop-filter: blur(10px);
+  position: fixed;
+  width: 100%;
 }
