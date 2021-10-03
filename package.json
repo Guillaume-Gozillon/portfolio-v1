@@ -1,0 +1,23 @@
+{
+  "name": "portfolio-v1",
+  "version": "1.0.0",
+  "description": "portfolio-v1",
+  "main": "index.js",
+  "dependencies": {
+    "node-sass": "^6.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Guillaume-Gozillon/portfolio-v1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Guillaume-Gozillon/portfolio-v1/issues"
+  },
+  "homepage": "https://github.com/Guillaume-Gozillon/portfolio-v1#readme"
+}
