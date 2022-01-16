@@ -1,6 +1,7 @@
 let controller
 let slideScene
 let pageScene
+let detailScene
 
 const animateSlides = () => {
   // Init controller
@@ -80,7 +81,7 @@ const activeCursor = e => {
   }
 }
 
-function navToggle(e) {
+const navToggle = e => {
   if (!e.target.classList.contains('active')) {
     e.target.classList.add('active')
     gsap.to('.line1', 0.5, { rotate: '45', y: 5, background: 'black' })
@@ -117,12 +118,17 @@ barba.init({
       namespace: 'fashion',
       beforeEnter() {
         logo.href = '../index.html'
+        detailAnimation()
         gsap.fromTo(
           '.nav-header',
           1,
           { y: '100%' },
           { y: '0%', ease: 'power2.inOut' }
         )
+      },
+      beforeLeave() {
+        controller.destroy()
+        detailScene.destroy()
       }
     }
   ],
@@ -161,6 +167,28 @@ barba.init({
   ]
 })
 
+const detailAnimation = () => {
+  controller = new ScrollMagic.Controller()
+  const slides = document.querySelectorAll('.detail-slide')
+  slides.forEach((slide, index, slides) => {
+    const slidesTl = gsap.timeline({ defaults: { duration: 1 } })
+    let nextSlide = slides.length - 1 === index ? 'end' : slides[index + 1]
+    const nextImg = nextSlide.querySelector('img')
+    slidesTl.fromTo(slide, { opacity: 1 }, { opacity: 0 })
+    slidesTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, '-=1')
+    slidesTl.fromTo(nextImg, { x: '50%' }, { x: '0%' })
+
+    // Scene
+    detailScene = new ScrollMagic.Scene({
+      triggerElement: slide,
+      duration: '100%',
+      triggerHook: 0
+    })
+      .setPin(slide, { pushFollowers: false })
+      .setTween(slidesTl)
+      .addTo(controller)
+  })
+}
 // EventListenner
 burger.addEventListener('click', navToggle)
 window.addEventListener('mousemove', cursor)
