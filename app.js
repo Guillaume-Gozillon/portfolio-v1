@@ -24,7 +24,6 @@ const animateSlides = () => {
     slideTl.fromTo(revealImg, { x: '0%' }, { x: '100%' })
     slideTl.fromTo(img, { scale: 2 }, { scale: 1 }, '-=1')
     slideTl.fromTo(revealText, { x: '0%' }, { x: '100%' }, '-=0.75')
-    slideTl.fromTo(nav, { y: '-100%' }, { y: '0%' }, '-=0.5')
 
     // Create scene
     slideScene = new ScrollMagic.Scene({
@@ -119,12 +118,6 @@ barba.init({
       beforeEnter() {
         logo.href = '../index.html'
         detailAnimation()
-        gsap.fromTo(
-          '.nav-header',
-          1,
-          { y: '100%' },
-          { y: '0%', ease: 'power2.inOut' }
-        )
       },
       beforeLeave() {
         controller.destroy()
@@ -159,9 +152,15 @@ barba.init({
           '.swipe',
           1,
           { x: '0%' },
-          { x: '100%', stagger: 0.25, onComplete: done }
+          { x: '100%', stagger: 0.25, onComplete: done },
+          tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 }),
+          tl.fromTo(
+            '.nav-header',
+            1,
+            { y: '-100%' },
+            { y: '0%', ease: 'power2.inOut' }
+          )
         )
-        tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 })
       }
     }
   ]
@@ -173,10 +172,8 @@ const detailAnimation = () => {
   slides.forEach((slide, index, slides) => {
     const slidesTl = gsap.timeline({ defaults: { duration: 1 } })
     let nextSlide = slides.length - 1 === index ? 'end' : slides[index + 1]
-    const nextImg = nextSlide.querySelector('img')
     slidesTl.fromTo(slide, { opacity: 1 }, { opacity: 0 })
     slidesTl.fromTo(nextSlide, { opacity: 0 }, { opacity: 1 }, '-=1')
-    slidesTl.fromTo(nextImg, { x: '50%' }, { x: '0%' })
 
     // Scene
     detailScene = new ScrollMagic.Scene({
