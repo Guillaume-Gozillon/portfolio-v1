@@ -32,11 +32,6 @@ const animateSlides = () => {
       reverse: false
     })
       .setTween(slideTl)
-      .addIndicators({
-        colorStart: 'white',
-        colorTrigger: 'white',
-        name: 'slide'
-      })
       .addTo(controller)
 
     // New animation
@@ -52,12 +47,6 @@ const animateSlides = () => {
       duration: '100%',
       triggerHook: 0
     })
-      .addIndicators({
-        colorStart: 'white',
-        colorTrigger: 'white',
-        name: 'page',
-        indent: 200
-      })
       .setTween(pageTl)
       .setPin(slide, { pushFollowers: false })
       .addTo(controller)
@@ -109,15 +98,67 @@ function navToggle(e) {
   }
 }
 // Barba page transitions
+const logo = document.querySelector('#logo')
 barba.init({
-    views: [
-        {
-            namespace: 'home'
-        },
-        {
-            namespace: 'fashion'
-        }
-    ]
+  views: [
+    {
+      namespace: 'home',
+      beforeEnter() {
+        animateSlides()
+        logo.href = './index.html'
+      },
+      beforeLeave() {
+        slideScene.destroy()
+        pageScene.destroy()
+        controller.destroy()
+      }
+    },
+    {
+      namespace: 'fashion',
+      beforeEnter() {
+        logo.href = '../index.html'
+        gsap.fromTo(
+          '.nav-header',
+          1,
+          { y: '100%' },
+          { y: '0%', ease: 'power2.inOut' }
+        )
+      }
+    }
+  ],
+  transitions: [
+    {
+      leave({ current, next }) {
+        let done = this.async()
+
+        // animation
+        const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
+        tl.fromTo(current.container, 1, { opacity: 1 }, { opacity: 0 })
+        tl.fromTo(
+          '.swipe',
+          0.75,
+          { x: '-100%' },
+          { x: '0%', onComplete: done },
+          '-=0.5'
+        )
+      },
+      enter({ current, next }) {
+        let done = this.async()
+        //scroll to the top
+        window.scrollTo(0, 0)
+
+        // animation
+        const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
+        tl.fromTo(
+          '.swipe',
+          1,
+          { x: '0%' },
+          { x: '100%', stagger: 0.25, onComplete: done }
+        )
+        tl.fromTo(next.container, 1, { opacity: 0 }, { opacity: 1 })
+      }
+    }
+  ]
 })
 
 // EventListenner
@@ -125,4 +166,9 @@ burger.addEventListener('click', navToggle)
 window.addEventListener('mousemove', cursor)
 window.addEventListener('mouseover', activeCursor)
 
-animateSlides()
+//   .addIndicators({
+//     colorStart: 'white',
+//     colorTrigger: 'white',
+//     name: 'page',
+//     indent: 200
+//   })
