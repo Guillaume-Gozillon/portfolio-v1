@@ -5,45 +5,5 @@
 }
 
 body {
-  background-color: #e5e5f7;
-  opacity: 0.8;
-  background-image: radial-gradient(
-    #444cf7 0.9500000000000001px,
-    #e5e5f7 0.9500000000000001px
-  );
-  background-size: 19px 19px;
-  height: 100vh;
-  color: #444cf7;
-  font-family: 'Josefin Sans', sans-serif;
-}
-
-.container {
-  display: flex;
-  overflow: hidden;
-  width: 100%;
-  position: absolute;
-  top: 45%;
-  transform: translateY(-50%);
-}
-
-.txt {
-  white-space: nowrap;
-  font-size: 4rem;
-  animation: scrollTxt 25s linear infinite;
-  font-weight: 500;
-}
-
-@keyframes scrollTxt {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-100%, 0);
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .txt {
-    font-size: 1.2rem;
-  }
+  font-family: 'Montserrat', sans-serif;
 }
