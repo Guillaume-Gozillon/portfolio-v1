@@ -66,7 +66,7 @@ const animateSlides = () => {
 
 const mouse = document.querySelector('.cursor')
 const mouseTxt = mouse.querySelector('span')
-const burger = mouse.querySelector('.burger')
+const burger = document.querySelector('.burger')
 
 const cursor = e => {
   mouse.style.top = `${e.pageY}px`
@@ -91,7 +91,7 @@ const activeCursor = e => {
   }
 }
 
-const navToggle = e => {
+function navToggle(e) {
   if (!e.target.classList.contains('active')) {
     e.target.classList.add('active')
     gsap.to('.line1', 0.5, { rotate: '45', y: 5, background: 'black' })
@@ -99,7 +99,7 @@ const navToggle = e => {
     gsap.to('#logo', 1, { color: 'black' })
     gsap.to('.nav-bar', 1, { clipPath: 'circle(2500px at 100% -10%)' })
     document.body.classList.add('hide')
-} else {
+  } else {
     e.target.classList.remove('active')
     gsap.to('.line1', 0.5, { rotate: '0', y: 0, background: 'white' })
     gsap.to('.line2', 0.5, { rotate: '0', y: 0, background: 'white' })
@@ -108,8 +108,20 @@ const navToggle = e => {
     document.body.classList.remove('hide')
   }
 }
+// Barba page transitions
+barba.init({
+    views: [
+        {
+            namespace: 'home'
+        },
+        {
+            namespace: 'fashion'
+        }
+    ]
+})
 
-window.addEventListener('click', navToggle)
+// EventListenner
+burger.addEventListener('click', navToggle)
 window.addEventListener('mousemove', cursor)
 window.addEventListener('mouseover', activeCursor)
 
