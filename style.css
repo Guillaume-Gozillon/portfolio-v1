@@ -9,6 +9,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
   position: relative;
+  cursor: none;
 }
 
 main {
@@ -234,7 +235,6 @@ body.hide {
 }
 
 /* Other pages */
-
 .fashion1,
 .fashion2,
 .fashion3 {
@@ -289,6 +289,7 @@ body.hide {
   padding: 2rem 2rem 0 0;
   margin-bottom: 10rem;
 }
+
 .fashion-nr {
   font-size: 15rem;
   position: absolute;
