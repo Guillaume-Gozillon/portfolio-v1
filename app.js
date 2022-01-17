@@ -7,11 +7,8 @@ const animateSlides = () => {
   // Init controller
   controller = new ScrollMagic.Controller()
 
-  // Selection
-  const sliders = document.querySelectorAll('.slide')
-  const nav = document.querySelector('.nav-header')
-
   // Loop over each slide
+  const sliders = document.querySelectorAll('.slide')
   sliders.forEach((slide, index, slides) => {
     const revealImg = slide.querySelector('.reveal-img')
     const img = slide.querySelector('img')
@@ -53,32 +50,9 @@ const animateSlides = () => {
   })
 }
 
-const mouse = document.querySelector('.cursor')
-const mouseTxt = mouse.querySelector('span')
+// Close menu
 const burger = document.querySelector('.burger')
-
-const cursor = e => {
-  mouse.style.top = `${e.pageY}px`
-  mouse.style.left = `${e.pageX}px`
-}
-
-const activeCursor = e => {
-  const item = e.target
-  if (item.id === 'logo' || item.classList.contains('burger')) {
-    mouse.classList.add('nav-active')
-  } else {
-    mouse.classList.remove('nav-active')
-  }
-  if (item.classList.contains('explore')) {
-    mouse.classList.add('explore-active')
-    gsap.to('.title-swipe', 1, { y: '0%' })
-    mouseTxt.innerText = 'Tap'
-  } else {
-    mouse.classList.remove('explore-active')
-    mouseTxt.innerText = ''
-    gsap.to('.title-swipe', 1, { y: '100%' })
-  }
-}
+const logo = document.querySelector('.logo')
 
 const navToggle = e => {
   if (!e.target.classList.contains('active')) {
@@ -97,8 +71,19 @@ const navToggle = e => {
     document.body.classList.remove('hide')
   }
 }
+
+const logoToggle = e => {
+  if (e.target.classList.contains('logo')) {
+    e.target.classList.remove('active')
+    gsap.to('.line1', 0.5, { rotate: '0', y: 0, background: 'white' })
+    gsap.to('.line2', 0.5, { rotate: '0', y: 0, background: 'white' })
+    gsap.to('#logo', 1, { color: 'white' })
+    gsap.to('.nav-bar', 1, { clipPath: 'circle(50px at 100% -10%)' })
+    document.body.classList.remove('hide')
+  }
+}
+
 // Barba page transitions
-const logo = document.querySelector('#logo')
 barba.init({
   views: [
     {
@@ -130,7 +115,7 @@ barba.init({
       leave({ current, next }) {
         let done = this.async()
 
-        // animation
+        // Animation
         const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
         tl.fromTo(current.container, 1, { opacity: 1 }, { opacity: 0 })
         tl.fromTo(
@@ -143,6 +128,7 @@ barba.init({
       },
       enter({ current, next }) {
         let done = this.async()
+
         //scroll to the top
         window.scrollTo(0, 0)
 
@@ -186,14 +172,7 @@ const detailAnimation = () => {
       .addTo(controller)
   })
 }
+
 // EventListenner
 burger.addEventListener('click', navToggle)
-window.addEventListener('mousemove', cursor)
-window.addEventListener('mouseover', activeCursor)
-
-//   .addIndicators({
-//     colorStart: 'white',
-//     colorTrigger: 'white',
-//     name: 'page',
-//     indent: 200
-//   })
+logo.addEventListener('click', logoToggle)
